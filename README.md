@@ -6,7 +6,7 @@ Avro schema auto adaptor for json data, which can be used to convert json format
 * Better support the online schema change ,because it generates avro schema according to the json data, we can reduce the mannual operation.
 
 ## Disadvantage
-* Field type not precisely, for example, 1.0 can be float or double 
+* Field type not precisely matched,use default types. For example, 1.0 can be float or double ,the default type is double.
 * Avro map type NOT supported, because it looks the same with avro record,but the key and key value pairs are variant.
 
 
