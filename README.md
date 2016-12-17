@@ -3,7 +3,7 @@ Avro schema auto adaptor for json data, which can be used to convert json format
 
 ## Advantage
 * Convert json to avro or parquet smoothly without pre-defined schema
-* Better support the online schema change ,because it generates avro schema according to the json data, we can redue the mannual operation
+* Better support the online schema change ,because it generates avro schema according to the json data, we can reduce the mannual operation.
 
 ## Disadvantage
 * Field type not precisely, for example, 1.0 can be float or double 
