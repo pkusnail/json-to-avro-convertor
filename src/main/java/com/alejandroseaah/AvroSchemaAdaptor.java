@@ -1,4 +1,4 @@
-package com.AlejandroSeaah;
+package com.alejandroseaah;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -29,17 +29,17 @@ public class AvroSchemaAdaptor {
 
     public static String typeJudeg(Object obj){
         if (obj instanceof Boolean) {
-            return "\"boolean\",\"default\":" + Boolean.TRUE;
+            return "[\"null\",\"boolean\"],\"default\":null";
         }else  if ( (obj instanceof Long ) || (obj instanceof BigInteger )) {
-            return "\"long\",\"default\":" + Long.MIN_VALUE;
+            return "[\"null\",\"long\"],\"default\":null";
         }else if (obj instanceof String) {
-            return "\"string\",\"default\":\"\"" ;
+            return "[\"null\",\"string\"],\"default\":null";
         }else if (obj == null) {
-            return "\"null\",\"default\":null" ;
+            return "[\"null\",\"null\"],\"default\":null";
         }else if (obj instanceof Integer) {
-            return "\"int\",\"default\":" + Integer.MIN_VALUE ;
+            return "[\"null\",\"int\"],\"default\":null";
         }else {
-            return "\"double\",\"default\":" + Double.MIN_VALUE ;
+            return "[\"null\",\"double\"],\"default\":null";
         }
     }
     private static String getNum(){
@@ -55,7 +55,7 @@ public class AvroSchemaAdaptor {
     }
 
     public static String recordWrapper(String fieldStr){
-        return " {\"name\":\"recordNo"+ getNum() +"\"," +
+        return "{\"name\":\"recordNo"+ getNum() +"\"," +
                 "\"type\":\"record\"," +
                 "\"fields\":["+ fieldStr +"]" +
                 "}";
@@ -89,19 +89,19 @@ public class AvroSchemaAdaptor {
                 JSONArray jsonArray = JSON.parseArray(obj.toString());
                 for( int i = 0; i < jsonArray.size();i++){
                     if ((jsonArray.get(i) instanceof Long) || (jsonArray.get(i) instanceof BigInteger) || (jsonArray.get(i) instanceof Integer)) {
-                        sb.append("[{\"type\":\"array\",\"items\":\"long\"}],\"default\":" + Long.MIN_VALUE);
+                        sb.append("[\"null\",{\"type\":\"array\",\"items\":\"long\"}],\"default\":null");
                         return sb.toString();
                     }else if ((jsonArray.get(i) instanceof String)) {
-                        sb.append("[{\"type\":\"array\",\"items\":\"string\"}],\"default\":null");
+                        sb.append("[\"null\",{\"type\":\"array\",\"items\":\"string\"}],\"default\":null");
                         return sb.toString();
                     } else if ((jsonArray.get(i) instanceof Double) || (jsonArray.get(i) instanceof BigDecimal) || (jsonArray.get(i) instanceof Float)) {
-                        sb.append("[{\"type\":\"array\",\"items\":\"double\"}],\"default\":" + Double.MIN_VALUE);
+                        sb.append("[\"null\",{\"type\":\"array\",\"items\":\"double\"}],\"default\":null");
                         return sb.toString();
                     }else if ((jsonArray.get(i) instanceof Boolean) ) {
-                        sb.append("[{\"type\":\"array\",\"items\":\"boolean\"}],\"default\":" + Boolean.TRUE);
+                        sb.append("[\"null\",{\"type\":\"array\",\"items\":\"boolean\"}],\"default\":null");
                         return sb.toString();
                     } else {// object type
-                        sb.append("[{\"type\":\"array\",\"items\":" + avroSchemaConstructor(jsonArray.get(i)) + "}],\"default\":null");
+                        sb.append("[\"null\",{\"type\":\"array\",\"items\":" + avroSchemaConstructor(jsonArray.get(i)) + "}],\"default\":null");
                         return sb.toString();
                     }
                 }
@@ -119,12 +119,12 @@ public class AvroSchemaAdaptor {
 
     public static String avroSchemaAutoAdaption(Object obj) throws DataProcessException {//input must be json object
         if ( ( null == obj ) || obj.toString().equals("")){
-            throw new DataProcessException("输入异常");
+            throw new DataProcessException("wrong input");
         }
         try {
             JSONObject jsonObject = JSON.parseObject(obj.toString());
         }catch (Exception e){
-            throw new DataProcessException("输入异常");
+            throw new DataProcessException("wrong input");
         }
         return avroSchemaConstructor(obj);
     }
