@@ -12,7 +12,7 @@ Avro schema auto adaptor for json data, which can be used to convert json format
 
 # Test Case
 The test case shows how to convert json to avro, and it is the same for parquet.
-
+If you want to use it as a jar lib, use command "mvn assembly:assembly"
 
 # Field Type Conversion Table
 avro |example |json | json-to-avro-convertor
