@@ -1,4 +1,4 @@
-package com.AlejandroSeaah;
+package com.alejandroseaah;
 
 /**
  * Created by alejandroseaah on 16/12/13.

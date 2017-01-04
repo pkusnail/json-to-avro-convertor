@@ -1,4 +1,4 @@
-package com.AlejandroSeaah;
+package com.alejandroseaah;
 
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
